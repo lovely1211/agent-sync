@@ -1,6 +1,7 @@
 const Agent = require("../models/Agent");
 const bcrypt = require("bcryptjs");
 
+// Function to add a new agent
 exports.addAgent = async (req, res) => {
   const { name, email, mobile, password } = req.body;
 
@@ -19,6 +20,7 @@ exports.addAgent = async (req, res) => {
   }
 };
 
+// Function to fetch all agents
 exports.getAgents = async (req, res) => {
   try {
     const agents = await Agent.find();

@@ -9,6 +9,7 @@ const UploadCSV = () => {
     setFile(e.target.files[0]);
   };
 
+  // Function to handle file upload
   const handleUpload = async () => {
     if (!file) {
       setMessage("Please select a file.");

@@ -76,15 +76,15 @@ const Agents = () => {
     }
   };
 
-  const handleAgentSelect = (id) => {
-    if (selectedAgent === id) {
-      setSelectedAgent(null);
-      setList([]);
+  const handleAgentSelect = (agentId) => {
+    if (selectedAgent === agentId) {
+      setSelectedAgent(null); 
+      setList([]); 
       return;
     }
-
-    setSelectedAgent(id);
-    const response = fetch(`http://localhost:8080/api/${id}`, {
+  
+    setSelectedAgent(agentId);
+    fetch(`http://localhost:8080/api/grouped-agents`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -92,12 +92,12 @@ const Agents = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => setList(data))
-      .catch((err) => console.error("Error fetching distributed items:", err));
-      
-    console.log(response)
-  };
-
+      .then((data) => {
+        setList(data);
+      })
+      .catch((err) => console.error("Error fetching grouped agents:", err));
+  };  
+   
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Agents</h2>
@@ -180,16 +180,27 @@ const Agents = () => {
         <div className="mt-4 p-4 border rounded bg-gray-100">
           <h3 className="text-xl font-bold mb-2">Items for Selected Agent</h3>
           {list.length > 0 ? (
-            <ul className="space-y-2">
-              {list.map((item, index) => (
-                <li key={index} className="p-2 border rounded bg-white">
-                  {item.firstName} - {item.phone} - {item.notes}
-                </li>
+            <div className="mt-4">
+              {list.map((group, index) => (
+                <div key={index} className="mb-6 p-4 border rounded-lg">
+                  <h3 className="text-lg font-bold text-blue-600">
+                  Items for {agents.find((a) => a._id === selectedAgent)?.name} 
+                  </h3>
+                  <ul>
+                    {group.items.map((item, i) => (
+                      <li key={i} className="p-2 border rounded mb-2">
+                        <strong>{item.firstName}</strong> - {item.phone} <br />
+                        <em>{item.notes}</em>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
+            </div>
           ) : (
-            <p className="text-red-500">No items found for this agent.</p>
+            <p className="text-red-500 mt-4">No list found.</p>
           )}
+
         </div>
       )}
     </div>

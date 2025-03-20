@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setToken }) => {
+  // State to store email and password input values
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:8080/api/login", {
@@ -60,6 +62,7 @@ const Login = ({ setToken }) => {
             Login
         </button>
 
+        {/* Guest login button with pre-filled credentials */}
         <button
             type="button"
             className='bg-green-600 font-bold w-full rounded mt-2 

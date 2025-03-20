@@ -1,13 +1,12 @@
 const express = require("express");
-const multer = require("multer");
-const { uploadCSV, getAgentLists } = require("../controllers/listController");
+const upload = require("../middleware/uploadMiddleware")
 const auth = require("../middleware/authMiddleware");
+
+const { uploadCSV, getGroupedAgentLists } = require("../controllers/listController");
 
 const router = express.Router();
 
-const upload = multer({ storage: multer.memoryStorage() }); 
-
 router.post("/upload", auth, upload.single("file"), uploadCSV);
-router.get("/agent/:id", auth, getAgentLists);
+router.get("/grouped-agents", auth, getGroupedAgentLists);
 
 module.exports = router;
