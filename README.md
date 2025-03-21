@@ -1,6 +1,6 @@
 # Agent-Sync
 # Project Overview
-This project is a MERN_STack based dashboard application with authentication, CSV file upload functionality, and user role management.
+This project is a MERN-Stack based dashboard application with authentication, CSV file upload functionality, and user role management.
 
 ## Features
 - **User Authentication:** Users can log in using their email and password.
